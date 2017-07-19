@@ -4,8 +4,8 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 // Requiring our Note and Article models
-	// var Note = require("./models/Note.js");
-	// var Article = require("./models/Article.js");
+var Note = require("./models/Note.js");
+var Article = require("./models/Article.js");
 // Our scraping tools
 var request = require("request");
 var cheerio = require("cheerio");
@@ -55,34 +55,64 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-request("http://screenrant.com/movie-news/", function(err, res, html){
-	var $ = cheerio.load(html);
 
-	var results = [];
 
-	$("li.full-thumb").each(function(i, element){
-		var title = $(element).find("div.info-wrapper").find("h2.title").find("a").text();
-		var excerpt = $(element).find("div.info-wrapper").find("div.details").find("div.excerpt").find("p").text();
-		var author = $(element).find("div.info-wrapper").find("div.details").find("span.author").text();
-		// var timeStamp = $(element).find("div.info-wrapper").find("div.details").find("time.pub-date").text();
-
-		results.push({
-			Title: title,
-			Excerpt: excerpt,
-			Author: author
-			// Timestamp: timeStamp
-		});
-	});
-
-	console.log(results);
-})
+	
 
 
 // Routes
 // +++++++++++++++++++++++++++++++++
-// app.get("/", function(req, res){
-// 	res.send("Hello World!");
-// })
+
+// On Page Load
+app.get("/", function(req, res){
+	res.render("index");
+});
+
+// Scrape Button Route
+app.get("/scrape", function(req, res){
+	// Grabbing the body of the html page with a request
+	request("http://screenrant.com/movie-news/", function(err, res, html){
+		// Load Cheerio
+		var $ = cheerio.load(html);
+		// Grab the page's lis
+		$("li.full-thumb").each(function(i, element){
+
+			// Save an empty result object
+			var result = {};
+
+			result.title = $(this).find("div.info-wrapper").find("h2.title").find("a").text();
+			result.excerpt = $(this).find("div.info-wrapper").find("div.details").find("div.excerpt").find("p").text();
+			result.author = $(this).find("div.info-wrapper").find("div.details").find("span.author").text();
+			result.link = $(this).find("div.info-wrapper").find("h2.title").find("a").attr("href");
+
+			var entry = new Article(result);
+
+			entry.save(function(err, doc){
+				if (err){
+					console.log(err);
+				}
+				else{
+					console.log(doc);
+				}
+			});
+		});
+	});
+	res.redirect("/articles");
+});
+
+app.get("/articles", function(req, res){
+	Article.find({}, function(err, doc){
+		if (err){
+			console.log(err);
+		}
+		else{
+			res.render("index", {Article: doc})
+		}
+	})
+});
+
+
+
 
 // Listen on port 3000
 app.listen(3000, function() {
