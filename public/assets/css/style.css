@@ -1,0 +1,45 @@
+/*Main Body*/
+body{
+	background: #fc4a1a;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+/*Header/Navbar*/
+nav.navbar{
+	background: #fc4a1a;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+#navbarHeader{
+	font-family: 'Permanent Marker', cursive;
+	font-size: 2em;
+	text-shadow: 1px 1px #E7E9BB;
+}
+#dropdownLi{
+	font-family: 'Permanent Marker', cursive;
+}
+
+/*Jumbotron*/
+#jumbotronContainer{
+	background-color: rgba(251, 251, 96, 0.3);
+}
+h1.display-3{
+	font-family: 'Permanent Marker', cursive;
+	text-shadow: 1px 1px #E7E9BB;
+}
+.btn-secondary{
+	background-color: rgba(189, 189, 159, 0.1);
+	font-family: 'Jomhuria', cursive;	
+	font-size: 2em;
+	border-width: 1px;
+	border-color: #fdd135;
+}
+.btn-secondary:hover{
+	background-color: #e52332;
+}
+#boom{
+	max-width: 350px;
+	margin-left: 25%;
+}
