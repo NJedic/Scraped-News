@@ -119,11 +119,12 @@ app.put("/markfav/:id", function(req, res){
 
 // Display ONLY favorite Articles
 app.get("/savedarticles", function(req, res){
-	Article.find({favorite: true}).populate("notes").exec(function(err, doc){
+	Article.find({favorite: true}).populate("notes", ["body"]).exec(function(err, doc){
 		if (err){
 			console.log(err);
 		}
 		else{
+			console.log(doc);
 			res.render("saved", {Article: doc})
 		}
 	})
@@ -157,6 +158,18 @@ app.post("/submitnote", function(req, res){
 					res.redirect("/savedarticles");
 				}
 			});
+		}
+	});
+});
+
+// Delete a Note
+app.post("/savedarticles/deletenote/:id", function(req, res){
+	Article.remove({"notes": req.params.id}, function(err, res){
+		if(err){
+			res.send(err);
+		}
+		else{
+			res.redirect("/savedarticles");
 		}
 	});
 });

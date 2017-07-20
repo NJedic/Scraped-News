@@ -87,20 +87,20 @@
             </button>
           </div>
           <div class="modal-body">
-            {{!-- {{#each Article}} --}}
+          {{#each this.notes}}
             <div class="row justify-content-center">
               <div class="col-md-8">
-                {{this.notes}}
+              {{this}}
               </div>
               <div class="col-sm-3">
-                <form class="delete float-right" action="" method="">
+                <form class="delete float-right" action="/savedarticles/deletenote/{{this._id}}?_method=DELETE" method="POST">
                   <button type="submit" class="icons float-right standardButton" id="trashButton">
                     <i class="fa fa-trash-o fa-1x float-right" aria-hidden="true"></i>
                   </button>
-                </form>
+                </form>   
               </div>
             </div>
-            {{!-- {{/each}} --}}
+            {{/each}}
             <hr>
             <div class="row justify-content-center">
               <div class="col-md-10">
