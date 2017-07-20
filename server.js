@@ -55,11 +55,6 @@ db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
-
-
-	
-
-
 // Routes
 // +++++++++++++++++++++++++++++++++
 
@@ -68,7 +63,7 @@ app.get("/", function(req, res){
 	res.render("index");
 });
 
-// Scrape Button Route
+// Scrape Articles
 app.get("/scrape", function(req, res){
 	// Grabbing the body of the html page with a request
 	request("http://screenrant.com/movie-news/", function(err, res, html){
@@ -100,8 +95,9 @@ app.get("/scrape", function(req, res){
 	res.redirect("/articles");
 });
 
+// Display Articles after scrape
 app.get("/articles", function(req, res){
-	Article.find({}, function(err, doc){
+	Article.find({}).exec(function(err, doc){
 		if (err){
 			console.log(err);
 		}
@@ -111,7 +107,59 @@ app.get("/articles", function(req, res){
 	})
 });
 
+// Set a favorite Article
+app.put("/markfav/:id", function(req, res){
+	Article.update({"_id": req.params.id}, {$set: {favorite: true}}, function(err, res){
+		if(err){
+			console.log(err);
+		}		
+	});
+	return res.redirect("/articles");
+});
 
+// Display ONLY favorite Articles
+app.get("/savedarticles", function(req, res){
+	Article.find({favorite: true}).populate("notes").exec(function(err, doc){
+		if (err){
+			console.log(err);
+		}
+		else{
+			res.render("saved", {Article: doc})
+		}
+	})
+});
+
+// UN-favorite an Article
+app.put("/unmarkfav/:id", function(req, res){
+	Article.update({"_id": req.params.id}, {$set: {favorite: false}}, function(err, res){
+		if(err){
+			console.log(err);
+		}		
+	});
+	return res.redirect("/savedarticles");
+});
+
+// Post a Note
+app.post("/submitnote", function(req, res){
+	
+	var newNote = new Note(req.body);
+
+	newNote.save(function(err, doc){
+		if(err){
+			res.send(err);
+		}
+		else{
+			Article.findOneAndUpdate({}, {$push: {"notes": doc._id}}, {new: true}, function(err, newNote){
+				if(err){
+					res.send(err);
+				}
+				else{
+					res.redirect("/savedarticles");
+				}
+			});
+		}
+	});
+});
 
 
 // Listen on port 3000

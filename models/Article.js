@@ -25,11 +25,15 @@ var ArticleSchema = new Schema({
     type: String,
     required: true
   },
+  favorite:{
+    type: Boolean,
+    default: false
+  },
   // Notes
-  note: {
+  notes: [{
     type: Schema.Types.ObjectId,
     ref: "Note"
-  }
+  }]
 });
 
 // Create the Article model with the ArticleSchema

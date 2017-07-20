@@ -12,11 +12,6 @@ nav.navbar{
   background: -webkit-linear-gradient(to right, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-#navbarHeader{
-	font-family: 'Permanent Marker', cursive;
-	font-size: 2em;
-	text-shadow: 1px 1px #E7E9BB;
-}
 #dropdownLi{
 	font-family: 'Permanent Marker', cursive;
 }
@@ -29,14 +24,20 @@ h1.display-3{
 	font-family: 'Permanent Marker', cursive;
 	text-shadow: 1px 1px #E7E9BB;
 }
-.btn-secondary{
-	background-color: rgba(189, 189, 159, 0.1);
-	font-family: 'Jomhuria', cursive;	
+#miniHeader{
+	font-family: 'Permanent Marker', cursive;
 	font-size: 2em;
+	text-shadow: 1px 1px #E7E9BB;
+}
+#scrapeButton{
+	background-color: rgba(189, 189, 159, 0.1);
+	font-family: 'Permanent Marker', cursive;
+	font-size: 2em;
+	text-shadow: 1px 1px #E7E9BB;
 	border-width: 1px;
 	border-color: #fdd135;
 }
-.btn-secondary:hover{
+#scrapeButton:hover{
 	background-color: #e52332;
 }
 #boom{
@@ -70,6 +71,16 @@ div.card{
   background: linear-gradient(to bottom, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 	margin-bottom: 10px;
 }
+.btn-secondary{
+	background-color: rgba(189, 189, 159, 0.1);
+	font-family: 'Jomhuria', cursive;	
+	font-size: 2em;
+	border-width: 1px;
+	border-color: #fdd135;
+}
+.btn-secondary:hover{
+	background-color: #e52332;
+}
 #trashButton{
 	border: 1px solid;
 	border-color: #fdd135;
@@ -79,4 +90,24 @@ div.card{
 }
 #trashButton:hover{
 	background-color: #e52332;
+}
+
+/*Notes Modal*/
+div.modal-content{
+	background: #f7b733;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to bottom, #f7b733, #fc4a1a);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to bottom, #f7b733, #fc4a1a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */	
+}
+h5.modal-title{
+	font-family: 'Permanent Marker', cursive;
+	font-size: 2em;
+	text-shadow: 1px 1px #E7E9BB;
+}
+div.modal-body{
+	font-family: 'Jomhuria', cursive;	
+	font-size: 2em;
+}
+textarea.form-control{
+	font-family: 'Jomhuria', cursive;	
+	font-size: 20pt;
 }

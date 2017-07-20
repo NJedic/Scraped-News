@@ -9,8 +9,8 @@
             <i class="fa fa-bars fa-3x" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right" id="dropdownMenu" aria-labelledby="menu1">
-              <a class="dropdown-item" href="/">Main</a>
-              <a class="dropdown-item" href="/savedArticles">My Saved Articles</a>
+              <a class="dropdown-item" href="/articles">Main</a>
+              <a class="dropdown-item" href="/savedarticles">Favorites</a>
             </div>
           </li>
         </ul>
@@ -54,8 +54,8 @@
             </p>
           </div>
           <div class="col-sm-1 right">
-            <form class="addToFavs" action="#" method="#" > 
-              <button type="submit" class="btn btn-secondary justify-content-end" id="favButton">Add To Favorites</button>
+            <form class="addToFavs" action="/markfav/{{this.id}}?_method=PUT" method="POST"> 
+              <button type="submit" class="btn btn-secondary justify-content-end" id="{{this._id}}">Add To Favorites</button>
             </form>
           </div>
         </div>

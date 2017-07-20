@@ -1,0 +1,126 @@
+<header>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded" id="navbar">
+      <a class="navbar-brand" id="navbarHeader"></a>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown" class="dropdownMenu" id="dropdownLi">
+            <a class="nav-link" href="#" id="menu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <i class="fa fa-bars fa-3x" aria-hidden="true"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" id="dropdownMenu" aria-labelledby="menu1">
+              <a class="dropdown-item" href="/articles">Main</a>
+              <a class="dropdown-item" href="/savedarticles">Favorites</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Jumbotron -->
+  <div class="jumbotron jumbotron-fluid" id="jumbotronContainer">
+  	<div class="container">
+  		<div class="row">
+	  		<div class="col-md-8">
+		    	<h1 class="display-3">Screen Rant Scrape</h1>
+		    	<hr>
+          <h3 id="miniHeader">My Favorite Articles</h3>
+				</div>
+				<div class="col-md-2">
+					<img src="assets/images/boom-copy.png" alt="BOOM!" id="boom"></img>
+				</div>
+			</div>
+  	</div>
+	</div>
+
+	<!-- Main Container -->
+	<div class="container">
+    {{#each Article}}
+		<div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-sm-9">
+            <p class="titles">
+              <!-- Link Goes Here: -->
+              <a href="{{this.link}}" target="_blank">
+                <!-- Title Goes Here: -->
+                {{this.title}}
+              </a>
+            </p>
+          </div>
+          <div class="col-sm-2 right">
+            <button type="submit" class="btn btn-secondary justify-content-end" data-toggle="modal" data-target="#noteModal{{this.id}}">Add a Note</button>
+          </div>
+          <div class="col-sm-1 right">
+            <form class="unFav float-right" action="/unmarkfav/{{this.id}}?_method=PUT" method="POST">
+              <button type="submit" class="icons float-right standardButton" id="trashButton">
+                <i class="fa fa-trash-o fa-3x float-right" aria-hidden="true"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card-block">
+        <h4 class="card-title">
+           <p>
+           <!-- Author's Name Goes Here -->
+            {{this.author}}
+          </p>
+          <p>
+            <!-- Excerpt Goes Here -->
+            {{this.excerpt}}
+          </p>
+        </h4>
+      </div>
+    {{/each}}
+    </div>
+    
+     <!-- Notes Modal -->
+     {{#each Article}}
+    <div class="modal fade" id="noteModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="notes" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Notes</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {{!-- {{#each Article}} --}}
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                {{this.notes}}
+              </div>
+              <div class="col-sm-3">
+                <form class="delete float-right" action="" method="">
+                  <button type="submit" class="icons float-right standardButton" id="trashButton">
+                    <i class="fa fa-trash-o fa-1x float-right" aria-hidden="true"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+            {{!-- {{/each}} --}}
+            <hr>
+            <div class="row justify-content-center">
+              <div class="col-md-10">
+                <form class="newNote" action="" method="">
+                  <div class="form-group">
+                    <label for="newNoteContent">New Note:</label>
+                      <textarea type="text" name="body" class="form-control" rows="5" id="newNoteContent" name="content" placeholder="Type Your Comments Here"></textarea>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <form class="submitNote" action="/submitnote" method="POST">
+              <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+	</div>
