@@ -162,21 +162,20 @@ app.post("/submitnote/:id", function(req, res){
 });
 
 // Delete a Note
-app.post("/deletenote/:id", function(req, res){
+app.get("/deletenote/:id", function(req, res){
 	Note.remove({"_id": req.params.id}).exec(function(err, res){
 		if(err){
 			res.send(err);
 		}
-		else{
-			res.redirect("/savedarticles");
-		}
 	});
+		
+	return res.redirect("/savedarticles");
 });
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+app.listen(3001, function() {
+  console.log("App running on port 3001!");
 });
 
 
