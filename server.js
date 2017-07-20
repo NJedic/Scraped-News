@@ -38,14 +38,7 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
-var databaseUri = "mongodb://localhost/scrapedNews";
-if(process.env.MONGODB_URI){
-	mongoose.connect(process.env.MONGODB_URI);
-} else{
-	mongoose.connect(databaseUri);
-}
-
-
+mongoose.connect("mongodb://localhost/scrapedNews");
 var db = mongoose.connection;
 
 // Show any mongoose errors
