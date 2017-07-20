@@ -119,12 +119,11 @@ app.put("/markfav/:id", function(req, res){
 
 // Display ONLY favorite Articles
 app.get("/savedarticles", function(req, res){
-	Article.find({favorite: true}).populate("notes", ["body"]).exec(function(err, doc){
+	Article.find({favorite: true}).populate("note", ["body"]).exec(function(err, doc){
 		if (err){
 			console.log(err);
 		}
 		else{
-			console.log(doc);
 			res.render("saved", {Article: doc})
 		}
 	})
@@ -150,7 +149,7 @@ app.post("/submitnote/:id", function(req, res){
 			res.send(err);
 		}
 		else{
-			Article.findOneAndUpdate({"_id": req.params.id}, {$push: {"notes": doc._id}}, {new: true}).exec(function(err, newNote){
+			Article.findOneAndUpdate({"_id": req.params.id}, {$push: {"note": doc._id}}, {new: true}).exec(function(err, newNote){
 				if(err){
 					res.send(err);
 				}
@@ -164,7 +163,7 @@ app.post("/submitnote/:id", function(req, res){
 
 // Delete a Note
 app.post("/deletenote/:id", function(req, res){
-	Article.remove({"_id": req.params.id}, function(err, res){
+	Note.remove({"_id": req.params.id}).exec(function(err, res){
 		if(err){
 			res.send(err);
 		}

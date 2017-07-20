@@ -30,7 +30,7 @@ var ArticleSchema = new Schema({
     default: false
   },
   // Notes
-  notes: [{
+  note: [{
     type: Schema.Types.ObjectId,
     ref: "Note"
   }]

@@ -77,7 +77,7 @@
     
      <!-- Notes Modal -->
      {{#each Article}}
-    <div class="modal fade" id="noteModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="notes" aria-hidden="true">
+    <div class="modal fade" id="noteModal{{this.id}}" tabindex="-1" role="dialog" aria-labelledby="note" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -87,7 +87,7 @@
             </button>
           </div>
           <div class="modal-body">
-          {{#each this.notes}}
+          {{#each this.note}}
             <div class="row justify-content-center">
               <div class="col-md-8">
               {{this.body}}
