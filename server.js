@@ -17,6 +17,8 @@ mongoose.Promise = Promise;
 // Initialize Express
 var app = express();
 
+var PORT = process.env.PORT || 3001;
+
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + "/public"));
 
@@ -34,12 +36,6 @@ app.engine("handlebars", exphbs({
   defaultLayout: "main"
 }));
 app.set("view engine", "handlebars");
-
-// var routes = require("./controllers/articleControllers.js");
-
-// app.use("/", routes);
-// app.use("/update", routes);
-// app.use("/create", routes);
 
 // Database configuration with mongoose
 mongoose.connect("mongodb://localhost/scrapedNews");
@@ -65,14 +61,13 @@ app.get("/", function(req, res){
 
 // Scrape Articles
 app.get("/scrape", function(req, res){
-	// Grabbing the body of the html page with a request
 	request("http://screenrant.com/movie-news/", function(err, res, html){
-		// Load Cheerio
+
 		var $ = cheerio.load(html);
-		// Grab the page's lis
+		
 		$("li.full-thumb").each(function(i, element){
 
-			// Save an empty result object
+			
 			var result = {};
 
 			result.title = $(this).find("div.info-wrapper").find("h2.title").find("a").text();
@@ -172,6 +167,9 @@ app.get("/deletenote/:id", function(req, res){
 	return res.redirect("/savedarticles");
 });
 
+
+// LISTENER
+// +++++++++++++++++++++++++++++++++++++++
 
 // Listen on port 3000
 app.listen(3001, function() {
