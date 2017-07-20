@@ -90,10 +90,10 @@
           {{#each this.notes}}
             <div class="row justify-content-center">
               <div class="col-md-8">
-              {{this}}
+              {{this.body}}
               </div>
               <div class="col-sm-3">
-                <form class="delete float-right" action="/savedarticles/deletenote/{{this._id}}?_method=DELETE" method="POST">
+                <form class="delete float-right" action="/deletenote/{{this._id}}?_method=DELETE" method="POST">
                   <button type="submit" class="icons float-right standardButton" id="trashButton">
                     <i class="fa fa-trash-o fa-1x float-right" aria-hidden="true"></i>
                   </button>
@@ -104,18 +104,16 @@
             <hr>
             <div class="row justify-content-center">
               <div class="col-md-10">
-                <form class="newNote" action="" method="">
+                <form class="newNote" action="/submitnote/{{this.id}}" method="POST">
                   <div class="form-group">
                     <label for="newNoteContent">New Note:</label>
                       <textarea type="text" name="body" class="form-control" rows="5" id="newNoteContent" name="content" placeholder="Type Your Comments Here"></textarea>
                   </div>
-                </form>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <form class="submitNote" action="/submitnote" method="POST">
               <button type="submit" class="btn btn-secondary">Submit</button>
             </form>
           </div>

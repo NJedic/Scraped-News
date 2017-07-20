@@ -141,7 +141,7 @@ app.put("/unmarkfav/:id", function(req, res){
 });
 
 // Post a Note
-app.post("/submitnote", function(req, res){
+app.post("/submitnote/:id", function(req, res){
 	
 	var newNote = new Note(req.body);
 
@@ -150,7 +150,7 @@ app.post("/submitnote", function(req, res){
 			res.send(err);
 		}
 		else{
-			Article.findOneAndUpdate({}, {$push: {"notes": doc._id}}, {new: true}, function(err, newNote){
+			Article.findOneAndUpdate({"_id": req.params.id}, {$push: {"notes": doc._id}}, {new: true}).exec(function(err, newNote){
 				if(err){
 					res.send(err);
 				}
@@ -163,8 +163,8 @@ app.post("/submitnote", function(req, res){
 });
 
 // Delete a Note
-app.post("/savedarticles/deletenote/:id", function(req, res){
-	Article.remove({"notes": req.params.id}, function(err, res){
+app.post("/deletenote/:id", function(req, res){
+	Article.remove({"_id": req.params.id}, function(err, res){
 		if(err){
 			res.send(err);
 		}
