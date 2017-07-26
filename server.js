@@ -67,6 +67,10 @@ app.get("/", function(req, res){
 
 // Scrape Articles
 app.get("/scrape", function(req, res){
+
+	Article.remove({});
+
+
 	request("http://screenrant.com/movie-news/", function(err, res, html){
 
 		var $ = cheerio.load(html);
